@@ -22,10 +22,15 @@ function App() {
     }
   }
 
+  function removeListing(id) {
+    fetch(listingUrl+id, {method: "DELETE"})
+    .then(r => r.json())
+    .then(date => setListings(listings.filter(listing => listing.id !== id)))
+  }
   return (
     <div className="app">
       <Header />
-      <ListingsContainer listings={listings} changeFav={changeFav} fav={fav}/>
+      <ListingsContainer listings={listings} changeFav={changeFav} fav={fav} removeListing={removeListing}/>
     </div>
   );
 }

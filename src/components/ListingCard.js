@@ -1,6 +1,6 @@
 import React from "react";
 
-function ListingCard({listing, changeFav, fav}) {
+function ListingCard({listing, changeFav, fav, removeListing}) {
   const {id, description, image="https://via.placeholder.com/300x300", location} = listing
 
   const isFav = fav.includes(id)
@@ -19,7 +19,7 @@ function ListingCard({listing, changeFav, fav}) {
         )}
         <strong>{description}</strong>
         <span> · {location}</span>
-        <button className="emoji-button delete">🗑</button>
+        <button className="emoji-button delete" onClick={(e)=>removeListing(id)}>🗑</button>
       </div>
     </li>
   );

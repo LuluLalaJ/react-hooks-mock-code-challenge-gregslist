@@ -1,13 +1,14 @@
 import React from "react";
 import ListingCard from "./ListingCard";
 
-function ListingsContainer({listings, changeFav, fav}) {
+function ListingsContainer({listings, changeFav, fav, removeListing}) {
 
   const renderListings = listings.map(listing => <ListingCard
     key={listing.id}
     listing={listing}
     changeFav={changeFav}
     fav={fav}
+    removeListing={removeListing}
     />)
   return (
     <main>
