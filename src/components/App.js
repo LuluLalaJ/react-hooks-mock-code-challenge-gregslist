@@ -7,6 +7,8 @@ function App() {
   const [listings, setListings] = useState([])
   const [fav, setFav] = useState([])
   const [search, setSearch] = useState('')
+  const [sorted, setSorted] = useState(false)
+
 
   useEffect(()=>{
     fetch(listingUrl)
@@ -33,11 +35,21 @@ function App() {
     setSearch(item)
   }
 
-  const displayedListings = listings.filter(listing => listing.description.toLowerCase().includes(search.toLowerCase()) )
+
+  function sortListing(){
+    setSorted(sorted => !sorted)
+  }
+  const displayedListings = listings
+  .filter(listing => listing.description.toLowerCase().includes(search.toLowerCase()))
+  .sort((listing1, listing2) => {
+    if (sorted) {
+      return listing1.location.toLowerCase().localeCompare(listing2.location.toLowerCase())
+    }
+  })
 
   return (
     <div className="app">
-      <Header searchListing={searchListing}/>
+      <Header searchListing={searchListing} sortListing={sortListing} sorted={sorted}/>
       <ListingsContainer listings={displayedListings} changeFav={changeFav} fav={fav} removeListing={removeListing}/>
     </div>
   );
