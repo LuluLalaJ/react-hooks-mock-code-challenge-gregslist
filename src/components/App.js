@@ -6,6 +6,7 @@ function App() {
   const listingUrl = "http://localhost:6001/listings/"
   const [listings, setListings] = useState([])
   const [fav, setFav] = useState([])
+  const [search, setSearch] = useState('')
 
   useEffect(()=>{
     fetch(listingUrl)
@@ -27,10 +28,17 @@ function App() {
     .then(r => r.json())
     .then(date => setListings(listings.filter(listing => listing.id !== id)))
   }
+
+  function searchListing(item){
+    setSearch(item)
+  }
+
+  const displayedListings = listings.filter(listing => listing.description.toLowerCase().includes(search.toLowerCase()) )
+
   return (
     <div className="app">
-      <Header />
-      <ListingsContainer listings={listings} changeFav={changeFav} fav={fav} removeListing={removeListing}/>
+      <Header searchListing={searchListing}/>
+      <ListingsContainer listings={displayedListings} changeFav={changeFav} fav={fav} removeListing={removeListing}/>
     </div>
   );
 }
